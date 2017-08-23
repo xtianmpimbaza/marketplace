@@ -1,0 +1,256 @@
+<div class="content-inner scrollbar-style">
+  <button tooltip="Add exporter request" placement="left" triggers="mouseenter:mouseleave" container="body"
+          type="button" (click)="lgModal.show()" class="btn-md btn-lg btn-warning fab"><i class="icon-plus"></i>
+  </button>
+
+
+  <!--_________________________________________________editing the post__________________________________________-->
+
+  <div bsModal #editModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+       aria-labelledby="myLargeModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="modal-title">
+            <h4 class="title">Edit Exporter Request</h4>
+          </div>
+          <button type="button" class="close pull-right" (click)="editModal.hide()" aria-label="Close">
+            <!--<span aria-hidden="true">&times;</span>-->
+            <i class="icon-cancel-circle"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+
+            <form novalidate #editform="ngForm">
+              <div class="form-group">
+                <label>Exporter </label>
+                <input type="text" name="exporter" placeholder="Exporter" class="form-control"
+                       [(ngModel)]="toEdit.exporter" #exporter="ngModel" required/>
+                <p
+                  *ngIf="!request.controls['exporter'].valid && request.controls['exporter'].dirty || !request.controls['exporter'].valid && submitted">
+                  Please insert exporter.</p>
+              </div>
+              <div class="form-group">
+                <label>Crop </label>
+                <input type="text" name="crop" placeholder="Crop" class="form-control"
+                       [(ngModel)]="toEdit.crop" #crop="ngModel" required>
+                <p
+                  *ngIf="!request.controls['crop'].valid && request.controls['crop'].dirty || !request.controls['crop'].valid && submitted">
+                  Please add a crop.</p>
+              </div>
+              <div class="form-group">
+                <label>Quantity</label>
+                <input type="number" name="quantity" placeholder="0" class="form-control"
+                       [(ngModel)]="toEdit.quantity" #quantity="ngModel" required>
+                <p
+                  *ngIf="!request.controls['quantity'].valid && request.controls['quantity'].dirty || !request.controls['quantity'].valid && submitted">
+                  Please insert quantity</p>
+              </div>
+
+              <div class="form-group">
+                <label>Due Date</label>
+                <my-date-picker name="dueDate" placeholder="Due date" [(ngModel)]="toEdit.dueDate"
+                                #dueDate="ngModel"></my-date-picker>
+              </div>
+
+              <div class="form-group">
+                <label>Description</label>
+                <textarea type="text" name="describe" placeholder="Briefly describe what you need"
+                          class="form-control" [(ngModel)]="toEdit.describe" #describe="ngModel" required></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-blue" (click)="saveEdited()">Save</button>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--________________________________________________________ view details__________________________________________________-->
+  <div bsModal #viewModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+       aria-labelledby="myLargeModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="modal-title">
+            <h4 class="title">Post details</h4>
+          </div>
+          <button type="button" class="close pull-right" (click)="viewModal.hide()" aria-label="Close">
+            <i class="icon-cancel-circle"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="col-lg-6"><img src="http://localhost:5000/{{toEdit.photo_url}}" style="max-width: 100%;"></div>
+          <div class="col-lg-6">
+            <p>Exporter : {{toEdit.exporter}} </p>
+            <p>Crop : {{toEdit.crop}} </p>
+            <p>quantity : {{toEdit.quantity}} </p>
+            <p>Posted Date : {{toEdit.postDate}} </p>
+            <p>Due Date : {{toEdit.dueDate}} </p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--_____________________________________________ add a post ______________________________________________________-->
+
+
+  <div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+       aria-hidden="true">
+
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="modal-title">
+            <h4 class="title">Add Exporter Request</h4>
+            <!--<p class="category">Complete exporter request</p>-->
+          </div>
+          <button type="button" class="close pull-right" (click)="lgModal.hide()" aria-label="Close">
+            <i class="icon-cancel-circle"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+
+            <form [formGroup]="request" novalidate enctype="multipart/form-data">
+              <div class="form-group">
+                <label>Exporter</label>
+                <input type="text" formControlName="exporter" placeholder="Exporter" class="form-control" required>
+                <p
+                  *ngIf="!request.controls['exporter'].valid && request.controls['exporter'].dirty || !request.controls['exporter'].valid && submitted">
+                  Please insert exporter.</p>
+              </div>
+              <div class="form-group">
+                <label>Crop</label>
+                <input type="text" formControlName="crop" placeholder="Crop" class="form-control" required>
+                <p
+                  *ngIf="!request.controls['crop'].valid && request.controls['crop'].dirty || !request.controls['crop'].valid && submitted">
+                  Please add a crop.</p>
+              </div>
+              <div class="form-group">
+                <label>Quantity</label>
+                <input type="number" formControlName="quantity" placeholder="0" class="form-control" required>
+                <p
+                  *ngIf="!request.controls['quantity'].valid && request.controls['quantity'].dirty || !request.controls['quantity'].valid && submitted">
+                  Please insert quantity</p>
+              </div>
+
+              <div class="form-group">
+                <label>Date Posted</label>
+                <my-date-picker formControlName="postDate" placeholder="Date Posted"></my-date-picker>
+              </div>
+
+              <div class="form-group">
+                <label>Due Date</label>
+                <my-date-picker formControlName="dueDate" placeholder="Due Date"></my-date-picker>
+              </div>
+
+              <div class="form-group">
+                <label>Description</label>
+                <textarea type="text" formControlName="describe" placeholder="Briefly describe what you need"
+                          class="form-control" required></textarea>
+              </div>
+
+              <div>
+                <label>Image</label>
+                <!--<input type="file" formControlName="photo_url" placeholder="Please upload some photo" class="form-control" required (change)="fileChange(input)" #input/>-->
+                <input id="photo" type="file"/>
+              </div>
+
+              <!--<button type="submit"  class="btn btn-blue">Add</button>-->
+
+              <button type="button" class="btn btn-blue" (click)="upload()">
+                Add
+              </button>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--end of posting-->
+
+  <div class="table-responsive scrollbar-style">
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th>Exporter<i tooltip="Toggle to sort by exporter" triggers="mouseenter:mouseleave" placement="right"
+                       [class]="(eT==undefined)?'icon-sort float-right':(eT==true)?'icon-sort-alt-up float-right':'icon-sort-alt-down float-right'"
+                       (click)="sort.exporter()"></i></th>
+        <th>Crop<i tooltip="Toggle to sort by crop" triggers="mouseenter:mouseleave" placement="right"
+                   [class]="(cT==undefined)?'icon-sort float-right':(cT==true)?'icon-sort-alt-up float-right':'icon-sort-alt-down float-right'"
+                   (click)="sort.crop()"></i></th>
+        <th>Quantity<i tooltip="Toggle to sort by quantity" triggers="mouseenter:mouseleave" placement="right"
+                       [class]="(qT==undefined)?'icon-sort float-right':(qT==true)?'icon-sort-alt-up float-right':'icon-sort-alt-down float-right'"
+                       (click)="sort.quantity()"></i></th>
+        <th>Due Date<i tooltip="Toggle to sort by due date" triggers="mouseenter:mouseleave" placement="right"
+                       [class]="(dT==undefined)?'icon-sort float-right':(dT==true)?'icon-sort-alt-up float-right':'icon-sort-alt-down float-right'"
+                       (click)="sort.date()"></i></th>
+        <th>Post date<i tooltip="Toggle to sort by quantity available" triggers="mouseenter:mouseleave"
+                        placement="right"
+                        [class]="(aT==undefined)?'icon-sort float-right':(aT==true)?'icon-sort-alt-up float-right':'icon-sort-alt-down float-right'"
+                        (click)="sort.date()"></i></th>
+        <!--<th>Left</th>-->
+        <th>Actions<i class="icon-filter float-right" (click)="filters=!filters" tooltip="Toggle to filter"
+                      popoverTitle="Filter" triggers="mouseenter:mouseleave" placement="left"></i></th>
+      </tr>
+      <tr *ngIf="filters">
+        <th><input placeholder="Exporter" [(ngModel)]="fAce" (ngModelChange)="filter.exporter($event)"
+                   class="form-control"></th>
+        <th><input placeholder="Crop" [(ngModel)]="fCrop" (ngModelChange)="filter.crop($event)" class="form-control">
+        </th>
+        <th><input placeholder="Quantity" [(ngModel)]="fQty" (ngModelChange)="filter.quantity($event)"
+                   class="form-control"></th>
+        <th><input placeholder="Due Date" [(ngModel)]="fDate" (ngModelChange)="filter.date($event)"
+                   class="form-control"></th>
+        <!--<th><input placeholder="Available" [(ngModel)]="fDate" (ngModelChange)="filter.date($event)"-->
+        <!--class="form-control"></th>-->
+
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let post of posts">
+        <td>{{post.exporter}}</td>
+        <td>{{post.crop}}</td>
+        <td>{{post.quantity}}</td>
+        <td>{{post.dueDate.formatted}}</td>
+        <td>{{post.postDate}}</td>
+        <!--<td>{{post.available}}</td>-->
+        <!--<td>{{post.quantity - post.available}}</td>-->
+        <td>
+          <div class="btn-group">
+            <button type="button" tooltip="Edit" placement="top" (click)="postDetails(post)" class="btn btn-info">
+              <i class="icon-pencil-3"></i>
+            </button>
+            <button type="button" tooltip="Delete" placement="top" class="btn btn-danger" (click)="deletePosts(post)">
+              <i class="icon-trash-1"></i>
+            </button>
+            <!--<button type="button" tooltip="Complete" placement="top" (click)="closePosts(post)" class="btn btn-success">-->
+            <!--<i class="icon-check-1"></i>-->
+            <!--</button>-->
+            <button (click)="viewDetails(post)" tooltip="Details" class="btn btn-success" data-toggle="modal"><span
+              class="icom icon-zoom-out"></span></button>
+
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-6">
+    <pagination
+      previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"
+      [totalItems]="bigTotalItems" [(ngModel)]="bigCurrentPage" [maxSize]="maxSize" [itemsPerPage]="itemsPerPage"
+      class="pagination-sm"
+      [boundaryLinks]="true" [rotate]="false" (pageChanged)="pageChanged($event)"></pagination>
+  </div>
+</div>

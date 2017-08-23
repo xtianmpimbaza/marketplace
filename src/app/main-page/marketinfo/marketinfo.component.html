@@ -1,0 +1,216 @@
+<div class="content-inner scrollbar-style">
+  <button tooltip="Add exporter request" placement="left" triggers="mouseenter:mouseleave" container="body"
+          type="button" (click)="lgModal.show()" class="btn-md btn-lg btn-warning fab"><i class="icon-plus"></i>
+  </button>
+
+
+  <!--_________________________________________________editing the post__________________________________________-->
+
+  <div bsModal #editModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+       aria-labelledby="myLargeModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="modal-title">
+            <h4 class="title">Edit prevailing market prices</h4>
+          </div>
+          <button type="button" class="close pull-right" (click)="editModal.hide()" aria-label="Close">
+            <i class="icon-cancel-circle"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+
+            <form novalidate #editform="ngForm">
+              <div class="form-group">
+                <label>Market </label>
+                <input type="text" name="market" placeholder="Market" class="form-control"
+                       [(ngModel)]="toEdit.market" #market="ngModel" required/>
+                <p
+                  *ngIf="!request.controls['market'].valid && request.controls['market'].dirty || !request.controls['market'].valid && submitted">
+                  Please insert market.</p>
+              </div>
+              <div class="form-group">
+                <label>Commodity </label>
+                <input type="text" name="commodity" placeholder="Commodity" class="form-control"
+                       [(ngModel)]="toEdit.commodity" #commodity="ngModel" required>
+                <p
+                  *ngIf="!request.controls['commodity'].valid && request.controls['commodity'].dirty || !request.controls['commodity'].valid && submitted">
+                  Please add a commodity.</p>
+              </div>
+              <div class="form-group">
+                <label>Unit</label>
+                <input type="text" name="unit" placeholder="0" class="form-control"
+                       [(ngModel)]="toEdit.unit" #unit="ngModel" required>
+                <p
+                  *ngIf="!request.controls['unit'].valid && request.controls['unit'].dirty || !request.controls['unit'].valid && submitted">
+                  Please insert unit</p>
+              </div>
+
+              <div class="form-group">
+                <label>Wdolesale price</label>
+                <textarea type="number" name="wholesaleprice" placeholder="Wholesale price"
+                          class="form-control" [(ngModel)]="toEdit.wholesaleprice" #wholesaleprice="ngModel" required></textarea>
+              </div>
+
+              <div class="form-group">
+                <label>Retail price</label>
+                <textarea type="number" name="retailprice" placeholder="Briefly describe what you need"
+                          class="form-control" [(ngModel)]="toEdit.retailprice" #retailprice="ngModel" required></textarea>
+              </div>
+
+              <div class="form-group">
+                <label>Date of collection</label>
+                <my-date-picker name="collectionDate" placeholder="Date of collection" [(ngModel)]="toEdit.collectionDate"
+                                #collectionDate="ngModel"></my-date-picker>
+              </div>
+              <button type="submit" class="btn btn-blue" (click)="saveEdited()">Save</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!--_____________________________________________ add a post ______________________________________________________-->
+
+  <div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="modal-title">
+            <h4 class="title">Add prevailing market pricet</h4>
+          </div>
+          <button type="button" class="close pull-right" (click)="lgModal.hide()" aria-label="Close">
+            <i class="icon-cancel-circle"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+
+            <form [formGroup]="request" novalidate enctype="multipart/form-data">
+              <!--<form [formGroup]="request" novalidate (ngSubmit)="request.valid && addPost(request.value)">-->
+              <div class="form-group">
+                <label>Market</label>
+                <input type="text" formControlName="market" placeholder="Market" class="form-control" required>
+                <p
+                  *ngIf="!request.controls['market'].valid && request.controls['market'].dirty || !request.controls['market'].valid && submitted">
+                  Please insert market.</p>
+              </div>
+              <div class="form-group">
+                <label>Commodity</label>
+                <input type="text" formControlName="commodity" placeholder="Commodity" class="form-control" required>
+                <p
+                  *ngIf="!request.controls['commodity'].valid && request.controls['commodity'].dirty || !request.controls['commodity'].valid && submitted">
+                  Please add a commodity.</p>
+              </div>
+              <div class="form-group">
+                <label>Unit</label>
+                <input type="text" formControlName="unit" placeholder="unit" class="form-control" required>
+                <p
+                  *ngIf="!request.controls['unit'].valid && request.controls['unit'].dirty || !request.controls['unit'].valid && submitted">
+                  Please insert unit</p>
+              </div>
+
+              <div class="form-group">
+                <label>Date of collection</label>
+                <my-date-picker formControlName="collectionDate" placeholder="Date of collection"></my-date-picker>
+              </div>
+
+              <div class="form-group">
+                <label>Wholesale price</label>
+                <input type="number" formControlName="wholesaleprice" placeholder="Wholesale price" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label>Retail price</label>
+                <input type="number"formControlName="retailprice" placeholder="Wholesale price" class="form-control" required>
+              </div>
+              <button type="button" class="btn btn-blue" (click)="addPost(request.value)">
+                Add
+              </button>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--end of posting-->
+
+  <div class="table-responsive scrollbar-style">
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th>Market<i tooltip="Toggle to sort by exporter" triggers="mouseenter:mouseleave" placement="right"
+                       [class]="(eT==undefined)?'icon-sort float-right':(eT==true)?'icon-sort-alt-up float-right':'icon-sort-alt-down float-right'"
+                       (click)="sort.exporter()"></i></th>
+        <th>Commodity<i tooltip="Toggle to sort by crop" triggers="mouseenter:mouseleave" placement="right"
+                   [class]="(cT==undefined)?'icon-sort float-right':(cT==true)?'icon-sort-alt-up float-right':'icon-sort-alt-down float-right'"
+                   (click)="sort.crop()"></i></th>
+        <th>Unit<i tooltip="Toggle to sort by quantity" triggers="mouseenter:mouseleave" placement="right"
+                       [class]="(qT==undefined)?'icon-sort float-right':(qT==true)?'icon-sort-alt-up float-right':'icon-sort-alt-down float-right'"
+                       (click)="sort.quantity()"></i></th>
+        <th>Date of collection<i tooltip="Toggle to sort by due date" triggers="mouseenter:mouseleave" placement="right"
+                       [class]="(dT==undefined)?'icon-sort float-right':(dT==true)?'icon-sort-alt-up float-right':'icon-sort-alt-down float-right'"
+                       (click)="sort.date()"></i></th>
+        <th>Wholesale price<i tooltip="Toggle to sort by quantity available" triggers="mouseenter:mouseleave"
+                        placement="right"
+                        [class]="(aT==undefined)?'icon-sort float-right':(aT==true)?'icon-sort-alt-up float-right':'icon-sort-alt-down float-right'"
+                        (click)="sort.date()"></i></th>
+        <th>Retail price<i tooltip="Toggle to sort by quantity available" triggers="mouseenter:mouseleave"
+                              placement="right"
+                              [class]="(aT==undefined)?'icon-sort float-right':(aT==true)?'icon-sort-alt-up float-right':'icon-sort-alt-down float-right'"
+                              (click)="sort.date()"></i></th>
+        <th>Actions<i class="icon-filter float-right" (click)="filters=!filters" tooltip="Toggle to filter"
+                      popoverTitle="Filter" triggers="mouseenter:mouseleave" placement="left"></i></th>
+      </tr>
+      <tr *ngIf="filters">
+        <th><input placeholder="Market" [(ngModel)]="fAce" (ngModelChange)="filter.exporter($event)"
+                   class="form-control"></th>
+        <th><input placeholder="Commodity" [(ngModel)]="fCrop" (ngModelChange)="filter.crop($event)" class="form-control">
+        </th>
+        <th><input placeholder="Unit" [(ngModel)]="fQty" (ngModelChange)="filter.quantity($event)"
+                   class="form-control"></th>
+        <th><input placeholder="Collection Date" [(ngModel)]="fDate" (ngModelChange)="filter.date($event)"
+                   class="form-control"></th>
+        <!--<th><input placeholder="Available" [(ngModel)]="fDate" (ngModelChange)="filter.date($event)"-->
+        <!--class="form-control"></th>-->
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let post of posts">
+        <td>{{post.key.market}} </td>
+        <td>{{post.key.commodity}} </td>
+        <td>{{post.key.unit}} </td>
+        <td>{{post.key.wholesaleprice}} </td>
+        <td>{{post.key.retailprice}} </td>
+        <td>{{post.key.collectionDate.formatted}} </td>
+        <!--<td>{{post.available}}</td>-->
+        <!--<td>{{post.quantity - post.available}}</td>-->
+        <td>
+          <div class="btn-group">
+            <button type="button" tooltip="Edit" placement="top" (click)="postDetails(post.key)" class="btn btn-info">
+              <i class="icon-pencil-3"></i>
+            </button>
+            <button type="button" tooltip="Delete" placement="top" class="btn btn-danger" (click)="deletePosts(post.key)">
+              <i class="icon-trash-1"></i>
+            </button>
+
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-6">
+    <pagination
+      previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"
+      [totalItems]="bigTotalItems" [(ngModel)]="bigCurrentPage" [maxSize]="maxSize" [itemsPerPage]="itemsPerPage"
+      class="pagination-sm"
+      [boundaryLinks]="true" [rotate]="false" (pageChanged)="pageChanged($event)"></pagination>
+  </div>
+</div>

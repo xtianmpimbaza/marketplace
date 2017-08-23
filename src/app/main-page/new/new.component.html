@@ -1,0 +1,63 @@
+<div class="content-inner scrollbar-style">
+  <div class="table-responsive scrollbar-style">
+    <table class="table ">
+      <thead class="bg ">
+      <tr>
+        <th>ACE<i [class]="(aT==undefined)?'icon-sort float-right':(aT==true)?'icon-sort-alt-up float-right':'icon-sort-alt-down float-right'" (click)="sort.ace()"></i> </th>
+        <th>Crop<i [class]="(cT==undefined)?'icon-sort float-right':(cT==true)?'icon-sort-alt-up float-right':'icon-sort-alt-down float-right'" (click)="sort.crop()"></i></th>
+        <th>Quantity<i [class]="(qT==undefined)?'icon-sort float-right':(qT==true)?'icon-sort-alt-up float-right':'icon-sort-alt-down float-right'" (click)="sort.quantity()"></i></th>
+        <th>Date<i [class]="(dT==undefined)?'icon-sort float-right':(dT==true)?'icon-sort-alt-up float-right':'icon-sort-alt-down float-right'" (click)="sort.date()"></i></th>
+        <th>Status<i [class]="(sT==undefined)?'icon-sort float-right':(sT==true)?'icon-sort-alt-up float-right':'icon-sort-alt-down float-right'" (click)="sort.status()"></i></th>
+        <th>Actions<i class="icon-filter float-right" (click)="filters=!filters"></i></th>
+      </tr>
+      <tr *ngIf="filters">
+        <th><input placeholder="ACE" [(ngModel)]="fAce" (ngModelChange)="filter.ace($event)" class="form-control"></th>
+        <th><input placeholder="Crop" [(ngModel)]="fCrop" (ngModelChange)="filter.crop($event)" class="form-control"></th>
+        <th><input placeholder="Quantity" [(ngModel)]="fQty" (ngModelChange)="filter.quantity($event)" class="form-control"></th>
+        <th><input placeholder="Date" [(ngModel)]="fDate" (ngModelChange)="filter.date($event)" class="form-control"></th>
+        <th><input placeholder="Status" [(ngModel)]="fStatus" (ngModelChange)="filter.status($event)" class="form-control"></th>
+      </tr>
+      </thead>
+      <tbody *ngFor="let post of posts">
+      <tr>
+        <td>{{post.ace}}</td>
+        <td>{{post.crop}}</td>
+        <td>{{post.quantity}}</td>
+        <td>{{post.time}}</td>
+        <td>{{post.status}}</td>
+        <!--<td>{{post.date.toString().substr(0,15)}}</td>-->
+        <td>
+          <!--<div class="btn-group btn-actions" dropdown>-->
+            <!--<button type="button" tooltip="Delete" placement="top" class="btn btn-success" (click)="acceptBid(post)">-->
+              <!--<i class="icon-ok-1"></i>-->
+            <!--</button>-->
+            <!--<button type="button" tooltip="Delete" placement="top" class="btn btn-danger" (click)="rejectBid(post)">-->
+              <!--<i class="icon icon-cancel"></i>-->
+            <!--</button>-->
+          <!--</div>-->
+
+
+          <div class="btn-group">
+            <button type="button" tooltip="Accept" placement="top" (click)="acceptBid(post)" class="btn btn-info">
+              <i class="icon-ok-1"></i>
+            </button>
+            <button type="button" tooltip="Reject" placement="top" class="btn btn-danger" (click)="rejectBid(post)">
+              <i class="icon-cancel"></i>
+            </button>
+            <!--<button (click)="viewDetails(post)" tooltip="Details" class="btn btn-success" data-toggle="modal"><span-->
+              <!--class="icom icon-zoom-out"></span></button>-->
+
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col-md-6">
+    <pagination
+      previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"
+      [totalItems]="bigTotalItems" [(ngModel)]="bigCurrentPage" [maxSize]="maxSize" [itemsPerPage]="itemsPerPage" class="pagination-sm"
+                [boundaryLinks]="true" [rotate]="false"  (pageChanged)="pageChanged($event)"></pagination>
+  </div>
+</div>

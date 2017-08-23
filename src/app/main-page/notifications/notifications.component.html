@@ -1,0 +1,107 @@
+<div class="content-inner scrollbar-style" style="background-color: #fbfbfb;">
+  <div class="container-fluid">
+    <div class="stat-boxes">
+
+      <div class="row">
+        <br>
+        <br>
+        <div class="col-sm-6 col-md-6" style="background-color: white; padding: 10px;">
+          <h4 class="text-center"> Farmers bids </h4>
+          <div class="graph-box">
+            <div style="display: block;">
+
+              <table class="table table-bordered">
+                <thead>
+                <tr>
+                  <th>Bids</th>
+                  <th>Number</th>
+                  <th>Total Quantity</th>
+                </tr>
+
+                </thead>
+                <tbody>
+                <tr>
+                  <td>New</td>
+                  <td>{{posts.pending}}</td>
+                  <td>{{posts.pending_quantity}}</td>
+                </tr>
+                <tr>
+                  <td>Accepted</td>
+                  <td>{{posts.accepted}}</td>
+                  <td>{{posts.accepted_quantity}}</td>
+                </tr>
+                <tr>
+                  <td>Rejected</td>
+                  <td>{{posts.rejected}}</td>
+                  <td>{{posts.rejected_quantity}}</td>
+                </tr>
+                </tbody>
+              </table>
+
+
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-6" style="background-color: white; padding: 10px;">
+          <h4 class="text-center">Crops on market</h4>
+          <div class="graph-box">
+            <div style="display: block">
+
+              <table class="table table-bordered">
+                <thead>
+                <tr>
+                  <th>Crop</th>
+                  <th>Number of posts</th>
+                  <th>Total Quantity</th>
+                </tr>
+
+                </thead>
+                <tbody>
+                <tr>
+                  <td>Beans</td>
+                  <td>{{crops.beans}}</td>
+                  <td>{{crops.beans_qty}}</td>
+                </tr>
+                <tr>
+                  <td>Maize</td>
+                  <td>{{crops.maize}}</td>
+                  <td>{{crops.maize_qty}}</td>
+                </tr>
+                <tr>
+                  <td>Matooke</td>
+                  <td>{{crops.matooke}}</td>
+                  <td>{{crops.matooke_qty}}</td>
+                </tr>
+
+                <tr>
+                  <td>Sorghum</td>
+                  <td>{{crops.sorghum}}</td>
+                  <td>{{crops.sorghum_qty}}</td>
+                </tr>
+                <tr>
+                  <td>Simsim</td>
+                  <td>{{crops.simsim}}</td>
+                  <td>{{crops.simsim_qty}}</td>
+                </tr>
+                <tr>
+                  <td>Ground nuts</td>
+                  <td>{{crops.gnuts}}</td>
+                  <td>{{crops.gnuts_qty}}</td>
+                </tr>
+
+                <tr>
+                  <td>Others</td>
+                  <td>{{crops.others}}</td>
+                  <td>{{crops.others_qty}}</td>
+                </tr>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+<div class="content-inner scrollbar-style">
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th>Name<i [class]="(aT==undefined)?'icon-sort float-right':(aT==true)?'icon-sort-alt-up float-right':'icon-sort-alt-down float-right'" (click)="sort.ace()"></i> </th>
+        <th>Crop<i [class]="(cT==undefined)?'icon-sort float-right':(cT==true)?'icon-sort-alt-up float-right':'icon-sort-alt-down float-right'" (click)="sort.crop()"></i></th>
+        <th>Quantity<i [class]="(qT==undefined)?'icon-sort float-right':(qT==true)?'icon-sort-alt-up float-right':'icon-sort-alt-down float-right'" (click)="sort.quantity()"></i></th>
+        <th>Date<i [class]="(dT==undefined)?'icon-sort float-right':(dT==true)?'icon-sort-alt-up float-right':'icon-sort-alt-down float-right'" (click)="sort.date()"></i></th>
+        <th>Actions<i class="icon-filter float-right" (click)="filters=!filters"></i></th>
+      </tr>
+      <tr *ngIf="filters">
+        <th><input placeholder="ACE" [(ngModel)]="fAce" (ngModelChange)="filter.ace($event)" class="form-control"></th>
+        <th><input placeholder="Crop" [(ngModel)]="fCrop" (ngModelChange)="filter.crop($event)" class="form-control"></th>
+        <th><input placeholder="Quantity" [(ngModel)]="fQty" (ngModelChange)="filter.quantity($event)" class="form-control"></th>
+        <th><input placeholder="Date" [(ngModel)]="fDate" (ngModelChange)="filter.date($event)" class="form-control"></th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody *ngFor="let post of posts">
+      <tr>
+        <td>{{post.ace}}</td>
+        <td>{{post.crop}}</td>
+        <td>{{post.quantity}}</td>
+        <td>{{post.time}}</td>
+        <td>
+          <div class="btn-group">
+
+            <button   tooltip="Delete" triggers="mouseenter:mouseleave" placement="right" class="btn btn-danger" (click)="deletePosts(post)">
+              <i class="icon-trash"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col-md-6">
+    <!--<pagination-->
+      <!--previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"-->
+      <!--[totalItems]="bigTotalItems" [(ngModel)]="bigCurrentPage" [maxSize]="maxSize" [itemsPerPage]="itemsPerPage" class="pagination-sm"-->
+      <!--[boundaryLinks]="true" [rotate]="false"  (pageChanged)="pageChanged($event)"></pagination>-->
+  </div>
+</div>

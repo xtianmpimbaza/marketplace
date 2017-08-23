@@ -1,0 +1,32 @@
+/**************************************************
+***************** BREAD CRUMB *********************
+ **************************************************/
+.breadcrumb{
+  margin-bottom: 0;
+  padding: 0;
+  background: none;
+  border-radius: 0;
+
+  li{
+    font-size: 15px;
+    line-height: 22.5px;
+    color: #252525;
+
+    a{
+      color: #4287ee;
+      text-decoration: none !important;
+    }
+  }
+
+  >.active{
+    color: #252525;
+  }
+
+  >li + li::before{
+    font-family: all;
+    font-style: normal;
+    font-weight: normal;
+    content: '/f105';
+    color: rgba(37,37,37,0.5);
+  }
+}

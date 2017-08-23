@@ -1,0 +1,127 @@
+<div class="content-inner scrollbar-style" style="background-color: #fbfbfb;">
+  <div class="container-fluid">
+    <div class="stat-boxes">
+      <div class="row">
+        <div class="col-sm-6 col-md-3 top_menu">
+          <div class="box" style="background-color: white;">
+            <h5>Bids <i class="icon-angle-right"></i></h5>
+            <h3>{{posts}}</h3>
+            <h4>Feedback to supply</h4>
+            <div class="icon">
+              <i class="icon-message-filled" style="color: #ffe305;"></i>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3 top_menu">
+          <div class="box" style="background-color: white;">
+            <h5>On market<i class="icon-angle-right"></i></h5>
+            <h3>{{approved}}</h3>
+            <h4>Famers posts</h4>
+            <div class="icon">
+              <i class="icon-cart-arrow-down" style="color: #14ae6e"></i>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3 top_menu">
+          <div class="box" style="background-color: white;">
+            <h5>Closed <i class="icon-angle-right"></i></h5>
+            <h3>{{closed}}</h3>
+            <h4>Finished deals</h4>
+            <div class="icon">
+              <i class="icon-lock" style="color: #ae2b09;"></i>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3 top_menu">
+          <div class="box" style="background-color: white;">
+            <h5>Reports <i class="icon-angle-right"></i></h5>
+            <h3>0</h3>
+            <h4>Notifications</h4>
+            <div class="icon">
+              <i class="icon-bell-alt" style="color: #317bae"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" >
+        <br>
+        <br>
+        <div class="col-sm-6 col-md-4" style="background-color: white; padding: 10px;">
+          <h4 class="text-center"> Farmers bids status </h4>
+          <div class="graph-box">
+            <div style="display: block;">
+
+              <canvas *ngIf="doughnutChartData.length > 1"
+                      baseChart height="200px"
+                      [data]="doughnutChartData"
+                      [labels]="doughnutChartLabels"
+                      [chartType]="doughnutChartType"
+                      (chartHover)="chartHovered($event)"
+                      (chartClick)="chartClicked($event)"> </canvas>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4" style="background-color: white; padding: 10px;">
+          <h4 class="text-center"> Rejected and approved bids </h4>
+          <div class="graph-box">
+            <div style="display: block">
+              <canvas *ngIf="month.length == 12"
+                      baseChart height="200"
+                      [datasets]="barChartData"
+                      [labels]="barChartLabels"
+                      [options]="barChartOptions"
+                      [legend]="barChartLegend"
+                      [chartType]="barChartType"
+                      (chartHover)="chartHovered($event)"
+                      (chartClick)="chartClicked($event)"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4" style="background-color: white; padding: 10px;">
+          <h4 class="text-center"> Produce on market </h4>
+          <div class="graph-box">
+            <div style="display: block">
+              <canvas *ngIf="crops_data.length == 7"
+                      baseChart height="200"
+                      [data]="pieChartData"
+                      [labels]="pieChartLabels"
+                      [chartType]="pieChartType"
+                      (chartHover)="chartHovered($event)"
+                      (chartClick)="chartClicked($event)"></canvas>
+            </div>
+          </div>
+        </div>
+        <br>
+        <br>
+      </div>
+      <!--<div class="row">-->
+      <!--<div class="col-sm-12 col-md-6">-->
+      <!--<div class="graph-box">-->
+      <!--<table class="table">-->
+      <!--<thead>-->
+      <!--<tr>-->
+      <!--<th>ID</th>-->
+      <!--<th>Name</th>-->
+      <!--<th>ACE</th>-->
+      <!--<th>District</th>-->
+      <!--</tr>-->
+      <!--</thead>-->
+      <!--<tbody>-->
+      <!--<tr *ngFor="let user of users | slice:0:5; let i=index">-->
+      <!--<td>{{i}}</td>-->
+      <!--<td>{{user.name}}</td>-->
+      <!--<td>{{user.ace}}</td>-->
+      <!--<td>{{user.district}}</td>-->
+      <!--</tr>-->
+      <!--</tbody>-->
+      <!--</table>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--<div class="col-sm-12 col-md-6">-->
+      <!--<div class="graph-box">-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--</div>-->
+    </div>
+  </div>
+</div>

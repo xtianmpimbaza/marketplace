@@ -1,0 +1,12 @@
+.btn-actions{
+  .dropdown-toggle::after{
+    display: none;
+  }
+
+  li{
+    a{
+      text-decoration: none !important;
+    }
+  }
+}
+
